@@ -123,7 +123,7 @@ form{display:flex;flex-direction:column;gap:16px}
 
 /* fechamento */
 .fecho{margin-top:96px;padding-block:56px;border-top:1px solid var(--line);display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:40px;align-items:end}
-.fecho h2{font-size:clamp(2rem,4.8vw,3.1rem);line-height:1.08}
+.fecho h2{font-size:clamp(1.6rem,3.6vw,2.2rem);line-height:1.12}
 .fecho p{color:var(--body);font-size:1.1rem;margin-top:18px;max-width:46ch}
 .fecho .acoes{display:flex;flex-direction:column;gap:10px}
 .fecho .fine{text-align:center}
@@ -143,7 +143,8 @@ footer p{max-width:60ch}
 @media (max-width:520px){
   body{font-size:16px;padding-inline:16px}
   .duo{grid-template-columns:1fr}
-  .row .t{flex-basis:calc(100% - 46px)}
+  .indice{display:none}
+  .capa .sub{margin-top:16px}
   .round-head{grid-template-columns:1fr}
   .titulo{display:none}
   .deck{grid-template-columns:1fr 1fr;gap:14px}
@@ -176,7 +177,7 @@ footer p{max-width:60ch}
 
     <div class="form" id="gate">
       <h2>Se apresenta aí que o gabarito abre.</h2>
-      <p>É de graça. A primeira carta é por nossa conta, pra você ver como é.</p>
+      <p>É de graça. As 25 cartas abrem aqui embaixo assim que você manda.</p>
       <p class="aviso" id="aviso" hidden></p>
       <!-- Ponto de integração: na versão do site, este formulário envia para a ferramenta de leads da easyRoyalty. -->
       <form id="leadForm" novalidate data-lead-form="gabarito-quadro">
@@ -213,16 +214,16 @@ footer p{max-width:60ch}
     </div>
   </section>
 
-  <div id="rounds"></div>
+  <div id="rounds" hidden></div>
 
-  <section class="fecho" id="auditoria">
+  <section class="fecho" id="auditoria" hidden>
     <div>
-      <span class="eyebrow">E as suas músicas?</span>
-      <h2 style="margin-top:14px">Sabe as respostas. <span class="accent">Agora vê se o dinheiro tá chegando.</span></h2>
-      <p>A gente olha suas músicas uma por uma: cadastro, porcentagens, créditos retidos no Ecad e coautor de fora sem registro. É grátis e sem compromisso.</p>
+      <span class="eyebrow">Só pra quem já passou de 1 milhão de streams</span>
+      <h2 style="margin-top:14px">Suas músicas já somam <span class="accent">mais de 1 milhão de plays?</span></h2>
+      <p>Aí vale olhar de perto. A gente audita seu catálogo de graça e te mostra onde tem dinheiro parado.</p>
     </div>
     <div class="acoes">
-      <a class="btn" id="ctaBtn" href="#auditoria" data-whatsapp-link="">Quero a auditoria grátis</a>
+      <button class="btn" id="ctaBtn" type="button">Quero a auditoria</button>
       <p class="fine" id="ctaHint">A gente te chama no WhatsApp que você deixou.</p>
     </div>
   </section>
@@ -254,7 +255,7 @@ const R=[
   h:'As siglas e os termos <span class="accent">que todo mundo finge que sabe.</span>',
   p:'O quiz relâmpago do episódio. Vira cada carta, lê a resposta e marca se você sabia. No fim, vê quantas você acertaria no sofá.',quiz:true,
   q:[
-  {s:'obra',q:'O que é uma obra?',free:true,a:['A obra é a música enquanto criação: a letra, a melodia, o beat. Ela existe antes de qualquer gravação e continua existindo em toda versão, cover ou apresentação ao vivo.','É protegida desde o momento em que foi criada, sem precisar de registro. Os donos são os autores, e a editora deles se tiver contrato. O código da obra é o ISWC.'],r:'Obra é a receita do bolo.'},
+  {s:'obra',q:'O que é uma obra?',a:['A obra é a música enquanto criação: a letra, a melodia, o beat. Ela existe antes de qualquer gravação e continua existindo em toda versão, cover ou apresentação ao vivo.','É protegida desde o momento em que foi criada, sem precisar de registro. Os donos são os autores, e a editora deles se tiver contrato. O código da obra é o ISWC.'],r:'Obra é a receita do bolo.'},
   {s:'fonograma',q:'O que é um fonograma?',a:['Fonograma é a gravação: aquele áudio específico que sobe pro Spotify, o master. A mesma obra pode ter vários fonogramas, como a versão original, o remix, o acústico ou o cover de outro artista.','O dono é o produtor fonográfico, que é quem bancou a gravação. A intérprete e os músicos também têm direitos sobre ela. O código do fonograma é o ISRC.'],r:'Fonograma é o bolo pronto.'},
   {s:'editora',q:'O que faz uma Editora Musical?',a:['A editora cuida da obra pro autor e fica com uma porcentagem combinada em contrato. Na prática, ela:',['cadastra as músicas nas associações, aqui e lá fora;','cobra das plataformas o direito de reprodução (fonomecânico), que o Ecad não cobra;','negocia licenças pra filme, novela, publi e regravações;','confere os pagamentos e corre atrás de crédito retido.'],'Ser reconhecido como autor da música nunca sai de você. O que a editora administra é o dinheiro da obra, pelo prazo e nas condições do contrato.']},
   {s:'gravadora',q:'O que faz uma gravadora?',a:['A gravadora cuida do fonograma, não da obra. Normalmente ela banca a gravação, distribui, investe em divulgação e fica com boa parte da receita do master, pagando ao artista o que o contrato prevê.','Editora e gravadora são negócios diferentes, com contratos diferentes. Dá pra ter uma sem ter a outra. E artista independente que lança por distribuidora muitas vezes é a própria gravadora dele.'],r:'Gravadora cuida da gravação. Editora cuida da composição.'},
@@ -305,7 +306,7 @@ try{liberado=!!localStorage.getItem(KEY);}catch(e){}
 
 const todas=[]; R.forEach(r=>r.q.forEach((q,i)=>todas.push(Object.assign(q,{round:r,i}))));
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const pode=q=>liberado||q.free;
+const pode=q=>liberado;
 
 /* índice */
 $('#indice').innerHTML='<span class="eyebrow" style="display:block;margin-bottom:10px">'+todas.length+' respostas em 4 rounds</span>'+R.map((r,i)=>'<div class="row"><span class="n">0'+(i+1)+'</span><span class="t">'+r.nome+'</span><span class="d r">'+r.q.length+(r.q.length>1?' cartas':' carta')+'</span></div>').join('');
@@ -313,8 +314,8 @@ $('#indice').innerHTML='<span class="eyebrow" style="display:block;margin-bottom
 /* rounds */
 function render(){
   $('#rounds').innerHTML=R.map(r=>'<section class="round" id="'+r.id+'"><div class="round-head"><div class="titulo" aria-hidden="true"><span class="r">'+r.carta+'</span><span class="q">'+r.titulo+'</span><span class="h">Quadro Royalties</span></div><div><span class="eyebrow">'+r.carta+' · '+r.nome+'</span><h2 style="margin-top:12px">'+r.h+'</h2><p>'+r.p+'</p>'+(r.quiz?'<div class="placar" id="placar"></div>':'')+'</div></div><div class="deck">'+r.q.map(q=>{
-    const st=sabia[q.s], cls=['carta',pode(q)?'':'trancada',q.free&&!liberado?'gratis':'',st==='s'?'sabia':'',st==='n'?'nao':''].join(' ');
-    return '<button class="'+cls+'" data-s="'+q.s+'"><span class="marca" aria-hidden="true">'+(st==='s'?'✓':'·')+'</span><span class="r"><span>Carta do Quadro</span><span>'+String(q.i+1).padStart(2,'0')+'</span></span><span class="q">'+q.q+'</span><span class="h"><span>'+r.carta+'</span><span class="go">'+(pode(q)?(q.free&&!liberado?'Grátis · virar':'Virar'):'Cadastro libera')+'</span></span></button>';
+    const st=sabia[q.s], cls=['carta',pode(q)?'':'trancada',st==='s'?'sabia':'',st==='n'?'nao':''].join(' ');
+    return '<button class="'+cls+'" data-s="'+q.s+'"><span class="marca" aria-hidden="true">'+(st==='s'?'✓':'·')+'</span><span class="r"><span>Carta do Quadro</span><span>'+String(q.i+1).padStart(2,'0')+'</span></span><span class="q">'+q.q+'</span><span class="h"><span>'+r.carta+'</span><span class="go">'+'Virar'+'</span></span></button>';
   }).join('')+'</div></section>').join('');
   placar();
 }
@@ -341,13 +342,14 @@ $('#rounds').addEventListener('click',e=>{
 function pedir(q){
   pendente=q?q.s:null;
   $('#f-origem').value=pendente||'';
-  const a=$('#aviso'); a.hidden=false; a.textContent=q?'"'+q.q+'" libera com o cadastro.':'Esse gabarito libera com o cadastro.';
+  const a=$('#aviso'); a.hidden=false; a.textContent=q?'A resposta de "'+q.q+'" abre logo depois do cadastro.':'';
   $('#gate').scrollIntoView({behavior:'smooth',block:'start'});
   setTimeout(()=>{try{$('#f-nome').focus({preventScroll:true});}catch(e){}},400);
 }
 function liberar(nome){
   liberado=true;
-  $('#gate').innerHTML='<h2>Tá liberado'+(nome?', '+esc(nome.split(' ')[0]):'')+'.</h2><p style="margin-top:0">Todas as '+todas.length+' cartas abertas. Começa pelo ENEN e vê quantas você sabia.</p><a class="btn" href="#r1">Ir pro round 01</a>';
+  $('#gate').innerHTML='<h2>Tá liberado'+(nome?', '+esc(nome.split(' ')[0]):'')+'.</h2><p style="margin-top:0">As '+todas.length+' cartas tão aqui embaixo. Começa pelo ENEN e vê quantas você sabia.</p>';
+  $('#rounds').hidden=false; $('#auditoria').hidden=false;
   render();
 }
 if(liberado){ let n=''; try{n=localStorage.getItem(KEY)||'';}catch(e){} liberar(n); }
@@ -440,9 +442,8 @@ porHash();
 
 /* CTA */
 $('#ctaBtn').addEventListener('click',e=>{
-  if(e.currentTarget.dataset.whatsappLink) return;
-  e.preventDefault();
   window.dispatchEvent(new CustomEvent('easyroyalty:auditoria',{detail:lead}));
+  e.currentTarget.disabled=true;
   $('#ctaHint').textContent='Fechou. A gente te chama no WhatsApp que você deixou.';
 });
 })();
