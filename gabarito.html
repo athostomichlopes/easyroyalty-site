@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Gabarito do Quadro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap">
+<style>
+/* Gabarito do Quadro Royalties: o baralho de cartas do programa, com a resposta no verso. Mesma linguagem do convite: fundo #17151b, brilho rosa no canto, linhas finas, cartas brancas de apresentador e cartas de round escuras com o gradiente. */
+:root{
+  color-scheme:dark;
+  --bg:#17151b; --panel:#1d1a22; --line:rgba(244,239,234,.10); --line-2:rgba(244,239,234,.18);
+  --fg:#f4efea; --body:#c3bcc9; --muted:#8d8694; --soft:#a79fae;
+  --pink:#de78bb; --a:#d079e3; --b:#ec7794;
+  --card:#f4efea; --ink:#17151b; --ink-soft:#7d7484;
+  --f:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0}
+img{max-width:100%}
+
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--bg);color:var(--fg);font-family:var(--f);font-size:17px;line-height:1.6;padding-inline:20px;padding-block:0 64px;font-variant-numeric:tabular-nums}
+body.modal-open{overflow:hidden}
+.glowbox{position:absolute;top:0;left:0;right:0;height:900px;overflow:hidden;pointer-events:none;z-index:0}
+.glow{position:absolute;top:-260px;right:-260px;width:760px;height:760px;border-radius:50%;background:radial-gradient(circle at 40% 40%,rgba(208,121,227,.22),rgba(236,119,148,.10) 45%,rgba(236,119,148,0) 72%)}
+.wrap{max-width:1080px;margin:0 auto;position:relative;z-index:1}
+h1,h2,h3{margin:0;font-weight:800;letter-spacing:-.01em;text-wrap:balance}
+p{margin:0}
+b{font-weight:700;color:var(--fg)}
+.accent{background:linear-gradient(90deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:var(--pink);-webkit-text-fill-color:transparent}
+.eyebrow{font-weight:600;letter-spacing:.06em;font-size:.82rem;text-transform:uppercase;color:var(--pink)}
+:focus-visible{outline:2px solid var(--pink);outline-offset:3px;border-radius:4px}
+
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:36px 0}
+.top img{height:34px;width:auto;display:block}
+
+/* capa */
+.capa{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:56px;padding-block:72px 24px;align-items:start}
+.capa h1{font-size:clamp(2.3rem,5.4vw,3.6rem);line-height:1.08}
+.capa .sub{font-size:1.15rem;color:var(--body);margin-top:24px;max-width:40ch}
+.indice{margin-top:40px}
+.row{display:flex;flex-wrap:wrap;column-gap:20px;row-gap:2px;align-items:baseline;padding-block:13px;border-top:1px solid var(--line)}
+.row:last-child{border-bottom:1px solid var(--line)}
+.row .n{font-weight:700;font-size:.95rem;min-width:26px;color:var(--pink)}
+.row .t{font-weight:700;flex:0 0 250px;min-width:0}
+.row .d{color:var(--soft);font-size:.95rem;flex:1 1 160px;min-width:0}
+.row .d.r{text-align:right;flex:0 0 auto}
+
+.form{background:rgba(19,17,23,.76);border:1px solid var(--line-2);border-radius:20px;padding:30px 28px;display:flex;flex-direction:column;gap:18px;scroll-margin-top:24px}
+.form h2{font-size:1.5rem;line-height:1.2}
+.form > p{color:var(--body);font-size:.95rem;margin-top:-8px}
+.form .aviso{color:var(--b);font-weight:600;font-size:.92rem}
+form{display:flex;flex-direction:column;gap:16px}
+.f label{display:block;font-weight:700;font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;color:var(--pink);margin-bottom:4px}
+.f input,.f select{width:100%;background:transparent;border:0;border-bottom:1px solid var(--line-2);border-radius:0;padding:8px 0 9px;color:var(--fg);font:inherit;font-size:1.02rem;appearance:none;-webkit-appearance:none}
+.f select{background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 12px) 55%,calc(100% - 7px) 55%;background-size:5px 5px;background-repeat:no-repeat;padding-right:24px;cursor:pointer}
+.f select option{background:#17151b;color:var(--fg)}
+.f input::placeholder{color:#6d6675}
+.f input:focus,.f select:focus{outline:none;border-bottom-color:var(--pink)}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.ok{display:flex;gap:10px;font-size:.84rem;color:var(--soft);line-height:1.45;cursor:pointer}
+.ok input{width:17px;height:17px;margin:2px 0 0;flex:none;accent-color:var(--a)}
+.btn{appearance:none;border:0;cursor:pointer;font:inherit;font-weight:800;font-size:1rem;padding:14px 22px;border-radius:999px;background:linear-gradient(90deg,var(--a),var(--b));color:#1b1320;text-decoration:none;display:inline-flex;justify-content:center;align-items:center;gap:8px;transition:filter .15s}
+.btn:hover{filter:brightness(1.07)}
+.btn.line{background:transparent;color:var(--fg);border:1px solid var(--line-2)}
+.btn.sm{padding:9px 16px;font-size:.88rem}
+.err{color:var(--b);font-size:.86rem;min-height:1.3em;margin-top:-6px}
+.fine{font-size:.78rem;color:var(--muted)}
+
+/* rounds */
+.round{padding-block:80px 0;display:flex;flex-direction:column;gap:28px}
+.round-head{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:36px;align-items:center}
+.titulo{aspect-ratio:103/144;max-width:200px;width:100%;border-radius:14px;padding:20px 18px;display:flex;flex-direction:column;justify-content:space-between;background:radial-gradient(140% 90% at 100% 0%,rgba(236,119,148,.55),transparent 60%),radial-gradient(120% 90% at 0% 100%,rgba(208,121,227,.5),transparent 60%),#221d29;border:1px solid var(--line-2);transform:rotate(-2deg);box-shadow:0 20px 44px rgba(0,0,0,.45)}
+.titulo .r{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--fg);opacity:.8}
+.titulo .q{font-size:1.4rem;font-weight:800;line-height:1.12}
+.titulo .h{font-size:.72rem;color:var(--fg);opacity:.7;font-weight:600}
+.round-head h2{font-size:clamp(1.8rem,4.2vw,2.7rem);line-height:1.08}
+.round-head p{color:var(--body);font-size:1.08rem;margin-top:14px;max-width:48ch}
+.placar{margin-top:18px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.placar b{font-size:1.9rem;font-weight:800;line-height:1}
+.placar span{color:var(--soft);font-size:.95rem}
+
+.deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:22px}
+.carta{appearance:none;border:0;text-align:left;font:inherit;cursor:pointer;background:var(--card);color:var(--ink);border-radius:14px;padding:18px 16px;min-height:250px;display:flex;flex-direction:column;justify-content:space-between;gap:14px;position:relative;box-shadow:0 14px 30px rgba(0,0,0,.35);transition:transform .2s ease,box-shadow .2s ease}
+.carta:nth-child(3n+1){transform:rotate(-1.2deg)} .carta:nth-child(3n+2){transform:rotate(.8deg)} .carta:nth-child(3n){transform:rotate(-.4deg)}
+.carta:hover{transform:translateY(-4px) rotate(0);box-shadow:0 22px 40px rgba(0,0,0,.45)}
+.carta .r{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#9a5c8e;display:flex;justify-content:space-between;gap:8px}
+.carta .q{font-size:1.12rem;font-weight:800;line-height:1.2;letter-spacing:-.01em}
+.carta .h{font-size:.74rem;font-weight:700;color:var(--ink-soft);display:flex;justify-content:space-between;align-items:center;gap:8px}
+.carta .h .go{color:#9a5c8e}
+.carta.trancada .h .go{color:var(--ink-soft)}
+.carta.gratis .h .go{color:#b0447f}
+.carta .marca{position:absolute;top:-9px;right:-9px;width:26px;height:26px;border-radius:50%;display:none;place-items:center;font-size:.8rem;font-weight:800;color:#1b1320;background:linear-gradient(90deg,var(--a),var(--b))}
+.carta.sabia .marca{display:grid}
+.carta.nao .marca{display:grid;background:var(--muted);color:var(--bg)}
+
+/* verso (modal) */
+.verso{position:fixed;inset:0;z-index:50;background:rgba(10,9,12,.82);display:flex;justify-content:center;align-items:flex-start;overflow-y:auto;padding:calc(24px + env(safe-area-inset-top,0px)) 16px calc(24px + env(safe-area-inset-bottom,0px))}
+.verso[hidden]{display:none!important}
+.verso-in{background:var(--panel);border:1px solid var(--line-2);border-radius:20px;width:100%;max-width:720px;margin:auto 0;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.verso-top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 22px;border-bottom:1px solid var(--line)}
+.fechar{appearance:none;background:transparent;border:1px solid var(--line-2);color:var(--fg);border-radius:999px;width:36px;height:36px;font:inherit;font-size:1.2rem;line-height:1;cursor:pointer;flex:none}
+.verso-q{background:var(--card);color:var(--ink);padding:26px 28px}
+.verso-q span{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#9a5c8e}
+.verso-q h2{font-size:clamp(1.5rem,4vw,2rem);line-height:1.15;margin-top:8px}
+.verso-a{padding:26px 28px 8px;display:flex;flex-direction:column;gap:14px;color:var(--body);font-size:1.05rem}
+.verso-a ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column}
+.verso-a li{padding:9px 0 9px 22px;border-top:1px solid var(--line);position:relative}
+.verso-a li:last-child{border-bottom:1px solid var(--line)}
+.verso-a li::before{content:"";position:absolute;left:2px;top:19px;width:7px;height:7px;border-radius:50%;background:var(--pink)}
+.resumo{border-left:3px solid var(--pink);padding:4px 0 4px 16px;color:var(--fg);font-weight:700;font-size:1.08rem}
+.verso-sabia{padding:18px 28px 4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.verso-sabia > span{font-weight:700;margin-right:6px}
+.tg{appearance:none;font:inherit;font-weight:700;font-size:.9rem;padding:8px 16px;border-radius:999px;border:1px solid var(--line-2);background:transparent;color:var(--soft);cursor:pointer}
+.tg[aria-pressed="true"]{background:linear-gradient(90deg,var(--a),var(--b));color:#1b1320;border-color:transparent}
+.tg.nao[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.verso-nav{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:20px 22px;border-top:1px solid var(--line);margin-top:18px;flex-wrap:wrap}
+.verso-nav .meio{display:flex;gap:10px;align-items:center}
+.copiado{font-size:.82rem;color:var(--soft)}
+
+/* fechamento */
+.fecho{margin-top:96px;padding-block:56px;border-top:1px solid var(--line);display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:40px;align-items:end}
+.fecho h2{font-size:clamp(2rem,4.8vw,3.1rem);line-height:1.08}
+.fecho p{color:var(--body);font-size:1.1rem;margin-top:18px;max-width:46ch}
+.fecho .acoes{display:flex;flex-direction:column;gap:10px}
+.fecho .fine{text-align:center}
+
+footer{margin-top:40px;display:flex;justify-content:space-between;gap:24px;align-items:flex-start;flex-wrap:wrap;font-size:.82rem;color:var(--muted)}
+footer p{max-width:60ch}
+
+@media (max-width:860px){
+  .capa,.fecho{grid-template-columns:1fr;gap:40px}
+  .capa{padding-block:48px 16px}
+  .round{padding-block:64px 0}
+  .round-head{grid-template-columns:120px minmax(0,1fr);gap:22px;align-items:start}
+  .titulo{padding:12px 11px}
+  .titulo .q{font-size:.9rem}
+  .titulo .r,.titulo .h{font-size:.56rem}
+}
+@media (max-width:520px){
+  body{font-size:16px;padding-inline:16px}
+  .duo{grid-template-columns:1fr}
+  .row .t{flex-basis:calc(100% - 46px)}
+  .round-head{grid-template-columns:1fr}
+  .titulo{display:none}
+  .deck{grid-template-columns:1fr 1fr;gap:14px}
+  .carta{min-height:200px;padding:14px 12px}
+  .carta .q{font-size:.98rem}
+  .carta .r{font-size:.6rem}
+  .carta .h{font-size:.66rem}
+  .verso-q,.verso-a{padding-inline:20px}
+  .verso-sabia{padding-inline:20px}
+}
+</style>
+</head>
+<body>
+<form name="leads" data-netlify="true" netlify-honeypot="bot-field" hidden><input name="bot-field"><input name="consentimento"><input name="nome"><input name="nome_artistico"><input name="whatsapp"><input name="email"><input name="link"><input name="perfil"><input name="editora"><input name="pergunta_origem"><input name="origem"><input name="pagina"></form>
+
+<div class="glowbox" aria-hidden="true"><div class="glow"></div></div>
+<div class="wrap">
+  <div class="top"><a href="index.html" aria-label="Início"><img src="royalties-logo.png" alt="royalties"></a><a class="eyebrow" href="index.html" style="text-decoration:none">← easyRoyalty</a></div>
+
+  <section class="capa">
+    <div>
+      <span class="eyebrow">Quadro Royalties</span>
+      <h1 style="margin-top:14px">Viu o episódio? <span class="accent">Aqui estão as respostas certas.</span></h1>
+      <p class="sub">Separamos as perguntas do Quadro que têm resposta certa e respondemos uma por uma. As histórias ficam com os artistas.</p>
+      <div class="indice" id="indice"></div>
+    </div>
+
+    <div class="form" id="gate">
+      <h2>Se apresenta aí que o gabarito abre.</h2>
+      <p>É de graça. A primeira carta é por nossa conta, pra você ver como é.</p>
+      <p class="aviso" id="aviso" hidden></p>
+      <!-- Ponto de integração: na versão do site, este formulário envia para a ferramenta de leads da easyRoyalty. -->
+      <form id="leadForm" novalidate data-lead-form="gabarito-quadro">
+        <div class="f"><label for="f-nome">Nome</label><input type="text" id="f-nome" name="nome" autocomplete="name" placeholder="Como você se chama"></div>
+        <div class="f"><label for="f-artistico">Nome artístico</label><input type="text" id="f-artistico" name="nome_artistico" placeholder="Se tiver"></div>
+        <div class="duo">
+          <div class="f"><label for="f-whats">WhatsApp</label><input type="tel" id="f-whats" name="whatsapp" autocomplete="tel" inputmode="tel" placeholder="(31) 99999-9999"></div>
+          <div class="f"><label for="f-email">E-mail</label><input type="email" id="f-email" name="email" autocomplete="email" placeholder="voce@email.com"></div>
+        </div>
+        <div class="duo">
+          <div class="f"><label for="f-perfil">Você é</label>
+            <select id="f-perfil" name="perfil">
+              <option value="">Escolhe aí</option>
+              <option value="compositor">Compositor(a)</option>
+              <option value="beatmaker">Beatmaker / produtor(a)</option>
+              <option value="interprete">MC / cantor(a)</option>
+              <option value="empresario">Empresário(a) / selo</option>
+              <option value="fa">Só curto o Quadro</option>
+              <option value="outro">Outro</option>
+            </select></div>
+          <div class="f"><label for="f-editora">Tem editora?</label>
+            <select id="f-editora" name="editora">
+              <option value="">Escolhe aí</option>
+              <option value="sim">Tenho</option>
+              <option value="nao">Não tenho</option>
+              <option value="nao_sei">Nem sei o que é</option>
+            </select></div>
+        </div>
+        <input type="hidden" name="pergunta_origem" id="f-origem" value="">
+        <label class="ok" for="f-lgpd"><input type="checkbox" id="f-lgpd" name="consentimento"><span>Topo receber conteúdo e contato da easyRoyalty no WhatsApp e no e-mail. Dá pra sair quando quiser.</span></label>
+        <p class="err" id="formErr" role="alert"></p>
+        <button class="btn" type="submit">Abrir o gabarito</button>
+      </form>
+    </div>
+  </section>
+
+  <div id="rounds"></div>
+
+  <section class="fecho" id="auditoria">
+    <div>
+      <span class="eyebrow">E as suas músicas?</span>
+      <h2 style="margin-top:14px">Sabe as respostas. <span class="accent">Agora vê se o dinheiro tá chegando.</span></h2>
+      <p>A gente olha suas músicas uma por uma: cadastro, porcentagens, créditos retidos no Ecad e coautor de fora sem registro. É grátis e sem compromisso.</p>
+    </div>
+    <div class="acoes">
+      <a class="btn" id="ctaBtn" href="#auditoria" data-whatsapp-link="">Quero a auditoria grátis</a>
+      <p class="fine" id="ctaHint">A gente te chama no WhatsApp que você deixou.</p>
+    </div>
+  </section>
+
+  <footer>
+    <span>@easy.royalty</span>
+    <p>Respostas da easyRoyalty Publishing com base na Lei 9.610/98 e nos regulamentos do Ecad. É conteúdo educativo, simplificado de propósito. Cada contrato é um contrato.</p>
+  </footer>
+</div>
+
+<div class="verso" id="verso" hidden role="dialog" aria-modal="true" aria-labelledby="vQ">
+  <div class="verso-in">
+    <div class="verso-top"><span class="eyebrow" id="vRound"></span><button class="fechar" id="vFechar" aria-label="Fechar">×</button></div>
+    <div class="verso-q"><span>Carta do Quadro</span><h2 id="vQ"></h2></div>
+    <div class="verso-a" id="vA"></div>
+    <div class="verso-sabia" id="vSabia"><span>Você sabia essa?</span><button class="tg" id="tSim" aria-pressed="false">Sabia</button><button class="tg nao" id="tNao" aria-pressed="false">Não sabia</button></div>
+    <div class="verso-nav">
+      <button class="btn line sm" id="vPrev">← Anterior</button>
+      <div class="meio"><button class="btn line sm" id="vLink">Copiar link</button><span class="copiado" id="vCopiado" aria-live="polite"></span></div>
+      <button class="btn sm" id="vNext">Próxima →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+const R=[
+ {id:'r1',nome:'ENEN — Eu Não Entendo Nada',carta:'Round 01',titulo:'ENEN',
+  h:'As siglas e os termos <span class="accent">que todo mundo finge que sabe.</span>',
+  p:'O quiz relâmpago do episódio. Vira cada carta, lê a resposta e marca se você sabia. No fim, vê quantas você acertaria no sofá.',quiz:true,
+  q:[
+  {s:'obra',q:'O que é uma obra?',free:true,a:['A obra é a música enquanto criação: a letra, a melodia, o beat. Ela existe antes de qualquer gravação e continua existindo em toda versão, cover ou apresentação ao vivo.','É protegida desde o momento em que foi criada, sem precisar de registro. Os donos são os autores, e a editora deles se tiver contrato. O código da obra é o ISWC.'],r:'Obra é a receita do bolo.'},
+  {s:'fonograma',q:'O que é um fonograma?',a:['Fonograma é a gravação: aquele áudio específico que sobe pro Spotify, o master. A mesma obra pode ter vários fonogramas, como a versão original, o remix, o acústico ou o cover de outro artista.','O dono é o produtor fonográfico, que é quem bancou a gravação. A intérprete e os músicos também têm direitos sobre ela. O código do fonograma é o ISRC.'],r:'Fonograma é o bolo pronto.'},
+  {s:'editora',q:'O que faz uma Editora Musical?',a:['A editora cuida da obra pro autor e fica com uma porcentagem combinada em contrato. Na prática, ela:',['cadastra as músicas nas associações, aqui e lá fora;','cobra das plataformas o direito de reprodução (fonomecânico), que o Ecad não cobra;','negocia licenças pra filme, novela, publi e regravações;','confere os pagamentos e corre atrás de crédito retido.'],'Ser reconhecido como autor da música nunca sai de você. O que a editora administra é o dinheiro da obra, pelo prazo e nas condições do contrato.']},
+  {s:'gravadora',q:'O que faz uma gravadora?',a:['A gravadora cuida do fonograma, não da obra. Normalmente ela banca a gravação, distribui, investe em divulgação e fica com boa parte da receita do master, pagando ao artista o que o contrato prevê.','Editora e gravadora são negócios diferentes, com contratos diferentes. Dá pra ter uma sem ter a outra. E artista independente que lança por distribuidora muitas vezes é a própria gravadora dele.'],r:'Gravadora cuida da gravação. Editora cuida da composição.'},
+  {s:'isrc-iswc',q:'Qual a diferença entre ISRC e ISWC?',a:['ISRC é o código da gravação. Tem 12 caracteres, no formato BR-XXX-26-00001, e quem gera é o produtor fonográfico ou a distribuidora na hora de lançar.','ISWC é o código da obra. Tem o formato T-000.000.000-0 e sai quando a música é cadastrada como obra pela associação.','Uma obra tem um ISWC só, mas pode ter vários ISRCs, um pra cada gravação dela.'],r:'ISRC é a gravação. ISWC é a composição.'},
+  {s:'produtor-fonografico',q:'O que é produtor fonográfico?',a:['É quem toma a iniciativa e paga pela gravação. A Lei 9.610/98 define como a pessoa ou empresa que tem a responsabilidade econômica da primeira fixação do som.','Aqui mora uma confusão clássica: produtor fonográfico não é necessariamente o produtor musical ou o beatmaker. Se o artista pagou o estúdio do próprio bolso e lançou sozinho, o produtor fonográfico é ele.','É o produtor fonográfico que recebe pelo master e leva a fatia de produtor no direito conexo do Ecad.']},
+  {s:'split',q:'O que é um split?',a:['Split é a divisão, em porcentagem, de quem é dono de uma música. Na obra, entre os autores (letra, melodia, beat) e as editoras. Na gravação, entre os donos do master.','O split sheet é o documento assinado por todo mundo com essa divisão. Os números precisam fechar 100%. Divergência de porcentagem trava o cadastro, e enquanto isso ninguém recebe.'],r:'Assina o split antes de lançar, não depois que estourar.'},
+  {s:'execucao-publica',q:'O que é execução pública?',a:['É quando a música toca pra um público, e não só pra você em casa: rádio, TV, show, festa, bar, loja, academia, hotel, cinema e, no Brasil, também o streaming.','Quem usa música assim paga o Ecad. O Ecad repassa às associações, que pagam autores, editoras, intérpretes, músicos e produtores fonográficos.','O streaming entrou nessa conta em 2017, quando o STJ decidiu que tocar música pela internet também é execução pública.']},
+  {s:'sincronizacao',q:'O que são os direitos de sincronização?',a:['É a licença pra juntar uma música com imagem: filme, série, novela, comercial, game, vídeo de marca.','Precisa de duas autorizações separadas: uma da obra (editora ou autores) e outra da gravação (gravadora ou dono do master). O valor é negociado caso a caso.','Depois, toda vez que o conteúdo passa na TV, no cinema ou no streaming, entra também execução pública. Isso só funciona se a produtora entregar o cue-sheet, a lista das músicas usadas.']},
+  {s:'ecad',q:'O que é ECAD?',a:['Ecad é o Escritório Central de Arrecadação e Distribuição. É uma entidade privada, prevista em lei, que cobra a execução pública de música no Brasil inteiro e distribui esse dinheiro.','Ele é administrado por sete associações: Abramus, Amar, Assim, Sbacem, Sicam, Socinpro e UBC. O Ecad não paga o artista direto. Ele repassa pra associação, e a associação paga você.','Em 2025 o Ecad arrecadou cerca de R$ 2,1 bilhões. Pela lei, pelo menos 85% precisa ir pra quem tem direito.']},
+  {s:'conexos',q:'O que são direitos conexos?',a:['São os direitos de quem não compôs, mas fez a música existir como gravação: intérpretes, músicos acompanhantes e produtores fonográficos. As emissoras de rádio e TV também têm direitos conexos sobre as próprias transmissões.','Na execução pública de música gravada, uma parte do que o Ecad distribui vai pra esse lado. E ela se divide assim: 41,7% pro intérprete, 41,7% pro produtor fonográfico e 16,6% pros músicos acompanhantes.']},
+  {s:'autoral-x-conexo',q:'Qual a diferença entre direito autoral e direito conexo?',a:['Direito autoral é de quem criou a obra: compositores, letristas, autores do beat e as editoras deles. Direito conexo é de quem participou da gravação: intérprete, músicos e produtor fonográfico.','Quando uma música gravada toca no rádio, o Ecad divide assim: 2/3 pro lado autoral e 1/3 pro lado conexo. Em show ao vivo não tem gravação tocando, então vai tudo pro autoral.'],r:'Quem compôs e cantou a própria música recebe dos dois lados.'},
+  {s:'fonomecanico',q:'Você sabe o que são os direitos fonomecânicos?',a:['É o direito de reprodução da obra: o direito de copiar a música, seja em CD e vinil, seja em download e streaming. A lei trata reprodução e execução pública como coisas independentes.','No streaming, isso quer dizer que cada play gera dois pagamentos pra obra: um de execução pública, pelo Ecad, e outro de reprodução, que as plataformas pagam às editoras.','Por isso, autor sem editora costuma receber só a parte do Ecad. A parte de reprodução fica sem ninguém pra cobrar.']},
+  {s:'ubem',q:'Você sabe o que é a UBEM?',a:['UBEM é a União Brasileira de Editoras de Música, a associação que reúne editoras, das grandes às independentes.','Ela não cuida de execução pública, que é com o Ecad. O papel dela é negociar, em nome das editoras, os direitos de reprodução e outros usos, como os acordos com plataformas digitais.','Pro autor, a UBEM não é porta de entrada direta. O caminho até ela é ter uma editora.']}
+  ]},
+ {id:'r2',nome:'Onde O Dinheiro Vai Parar?',carta:'Round 02',titulo:'Onde O Dinheiro Vai Parar?',
+  h:'As perguntas de dinheiro <span class="accent">que têm resposta certa.</span>',
+  p:'O resto do round é história de cada artista. Essas aqui valem pra qualquer um.',
+  q:[
+  {s:'royalties-plataformas',q:'Como funciona o pagamento de royalties das DSPs? De onde vem esse dinheiro?',a:['DSP é plataforma digital: Spotify, Deezer, YouTube Music e afins. O dinheiro vem das assinaturas e dos anúncios. A plataforma junta essa receita por país e por mês, separa a parte dos direitos e divide conforme a fatia de plays de cada música.','Ou seja, não existe um valor fixo por play. Ele muda conforme o país, o tipo de conta (paga ou grátis) e o tamanho do bolo naquele mês.','Desse bolo saem três pagamentos:',['o master, pela distribuidora ou gravadora (a maior fatia);','a execução pública da obra, pelo Ecad;','a reprodução da obra, pelas editoras.']]},
+  {s:'dinheiro-ecad',q:'De onde vem o dinheiro que o ECAD distribui?',a:['De todo mundo que usa música em público e paga por isso: rádios, TVs abertas e por assinatura, plataformas digitais, shows e eventos, bares, lojas, academias, hotéis, cinemas e empresas de música ambiente.','Em 2025 o Ecad arrecadou cerca de R$ 2,1 bilhões, e o digital já respondeu por um terço disso.','Depois de arrecadar, o Ecad separa a parte da administração, dele e das associações, e distribui o resto, no mínimo 85%, conforme o que tocou.']},
+  {s:'toca-e-nao-paga',q:'Tem música que toca muito mas você não recebe quase nada? Por quê?',a:['Quase sempre é um desses motivos:',['a obra não está cadastrada, ou está com porcentagem errada, e o dinheiro fica retido;','algum coautor ou produtor não tem cadastro, e a parte dele trava;','não tem editora, então a reprodução no streaming não é cobrada;','tocou em lugar pago por amostragem que não entrou no sorteio, ou num show sem setlist entregue;','o contrato deixa uma fatia grande com outra pessoa, ou ainda está recuperando um adiantamento;','o dinheiro ainda não caiu: o streaming pelo Ecad é pago por trimestre e leva alguns meses pra chegar.'],'Boa parte disso dá pra resolver. O problema é que dinheiro que não te encontrou não aparece escrito em extrato nenhum.']},
+  {s:'ao-vivo',q:'O que deveria acontecer todas as vezes que uma música sua é reproduzida ao vivo?',a:['O produtor do evento paga o Ecad pelo uso das músicas e entrega o roteiro musical, o setlist com tudo o que foi tocado.','Com isso, o Ecad distribui o valor pros autores e editoras das músicas tocadas. Em show vai tudo pro lado autoral, porque não tem gravação tocando.','Vale quando outro artista canta sua música, e vale no seu próprio show: se a música é sua, você recebe como autor.'],r:'Sem setlist entregue, o Ecad não tem como saber o que tocou.'}
+  ]},
+ {id:'r3',nome:'Roleta da Indústria',carta:'Round 03',titulo:'Roleta da Indústria',
+  h:'Isso ou aquilo não tem resposta certa. <span class="accent">Mas tem conta certa.</span>',
+  p:'No sofá cada artista escolhe o seu. Aqui vai o que pesa em cada escolha.',
+  q:[
+  {s:'autoral-ou-streaming',q:'Direitos autorais ou royalties de streaming?',a:['Pegadinha: não precisa escolher. O streaming gera royalty do master e gera direito autoral ao mesmo tempo.','Se você é só intérprete, recebe pelo master e pelo conexo. Se você compôs, recebe também como autor, pelo Ecad e pela reprodução.'],r:'Quem compõe e grava as próprias músicas recebe dos dois lados, se estiver tudo cadastrado.'},
+  {s:'100-ou-10',q:'100% de uma música pequena ou 10% de um hit gigante?',a:['Faz a conta: 10% de uma música que rende 50 vezes mais é 5 vezes mais dinheiro do que 100% da pequena.','Mas tem detalhe. O hit pode ter dez coautores, briga de split e cadastro travado. E a música pequena 100% sua você controla sozinho: licencia, regrava e negocia sem pedir pra ninguém.'],r:'Porcentagem de música mal cadastrada vale zero.'},
+  {s:'adiantamento',q:'Advance de milhões ou royalties mensais?',a:['Adiantamento não é presente. É um empréstimo pago com os seus próprios royalties: enquanto o valor não for recuperado, você não recebe mais nada daquelas músicas.','Antes de aceitar, olha três coisas:',['de onde sai a recuperação: só das músicas do contrato ou de tudo seu;','se o contrato prorroga sozinho até recuperar;','o que acontece se não recuperar.'],'A Justiça do Rio já derrubou cláusula que prorrogava contrato de edição até o autor pagar o adiantamento.']},
+  {s:'5-anos-ou-1-musica',q:'Contrato de 5 anos ou contrato de 1 música só?',a:['O tempo sozinho não diz muito. O que importa é o que entra no contrato e o que acontece quando ele acaba. Pergunta sempre:',['vale só pras músicas novas ou pega as antigas também?','vale em quais países?','no final, as músicas voltam pra você ou ficam com a outra parte?'],'Pela lei, contrato que pega músicas que você ainda vai compor pode durar no máximo 5 anos.']},
+  {s:'ler-o-contrato',q:'Ler o contrato inteiro ou confiar no advogado?',a:['Os dois. O advogado protege você do que está escrito. Mas só você sabe o que foi prometido na conversa e não entrou no papel.','Antes de assinar, acha essas seis coisas no contrato:',['a porcentagem de cada lado;','o prazo;','o território;','quais músicas entram;','como funciona o adiantamento;','como e quando você recebe a prestação de contas.']],r:'Se não consegue explicar o contrato pra um amigo, ainda não é hora de assinar.'},
+  {s:'vender-catalogo',q:'Venderia seu catálogo hoje? Por quanto?',a:['Catálogo costuma ser avaliado por um múltiplo do que ele rende por ano. Quanto mais estável e previsível a receita, maior o múltiplo.','Por isso música mal cadastrada vale menos na hora de vender: o comprador só paga pelo que consegue comprovar que entra.','E vender não é a única saída. Dá pra vender só uma parte, ou só por um tempo.'],r:'Arrumar o cadastro é o jeito mais simples de valorizar um catálogo.'}
+  ]},
+ {id:'r4',nome:'Backstage',carta:'Round 04',titulo:'Backstage',
+  h:'Essa a gente também <span class="accent">quis responder.</span>',
+  p:'Uma pergunta do Backstage, com a resposta da easyRoyalty.',
+  q:[
+  {s:'primeiro-contrato',q:'O que você gostaria que todo artista soubesse antes de assinar o primeiro contrato?',a:[['Que obra e gravação são contratos diferentes, e ninguém precisa ficar com as duas.','Que adiantamento é dívida, que prazo tem que ter fim e que as músicas têm que voltar pra você.','Que "todo mundo assina assim" não é argumento.','Que cadastro é tão importante quanto contrato: música sem cadastro não paga ninguém, nem você nem quem assinou com você.']],r:'A resposta da easyRoyalty.'}
+  ]}
+];
+
+const $=s=>document.querySelector(s);
+const KEY='er_gabarito_liberado', KS='er_gabarito_sabia';
+let liberado=false, lead=null, pendente=null, atual=null;
+let sabia={}; try{sabia=JSON.parse(localStorage.getItem(KS)||'{}')||{};}catch(e){}
+try{liberado=!!localStorage.getItem(KEY);}catch(e){}
+
+const todas=[]; R.forEach(r=>r.q.forEach((q,i)=>todas.push(Object.assign(q,{round:r,i}))));
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pode=q=>liberado||q.free;
+
+/* índice */
+$('#indice').innerHTML='<span class="eyebrow" style="display:block;margin-bottom:10px">'+todas.length+' respostas em 4 rounds</span>'+R.map((r,i)=>'<div class="row"><span class="n">0'+(i+1)+'</span><span class="t">'+r.nome+'</span><span class="d r">'+r.q.length+(r.q.length>1?' cartas':' carta')+'</span></div>').join('');
+
+/* rounds */
+function render(){
+  $('#rounds').innerHTML=R.map(r=>'<section class="round" id="'+r.id+'"><div class="round-head"><div class="titulo" aria-hidden="true"><span class="r">'+r.carta+'</span><span class="q">'+r.titulo+'</span><span class="h">Quadro Royalties</span></div><div><span class="eyebrow">'+r.carta+' · '+r.nome+'</span><h2 style="margin-top:12px">'+r.h+'</h2><p>'+r.p+'</p>'+(r.quiz?'<div class="placar" id="placar"></div>':'')+'</div></div><div class="deck">'+r.q.map(q=>{
+    const st=sabia[q.s], cls=['carta',pode(q)?'':'trancada',q.free&&!liberado?'gratis':'',st==='s'?'sabia':'',st==='n'?'nao':''].join(' ');
+    return '<button class="'+cls+'" data-s="'+q.s+'"><span class="marca" aria-hidden="true">'+(st==='s'?'✓':'·')+'</span><span class="r"><span>Carta do Quadro</span><span>'+String(q.i+1).padStart(2,'0')+'</span></span><span class="q">'+q.q+'</span><span class="h"><span>'+r.carta+'</span><span class="go">'+(pode(q)?(q.free&&!liberado?'Grátis · virar':'Virar'):'Cadastro libera')+'</span></span></button>';
+  }).join('')+'</div></section>').join('');
+  placar();
+}
+function placar(){
+  const el=$('#placar'); if(!el) return;
+  const qs=R[0].q, s=qs.filter(q=>sabia[q.s]==='s').length, resp=qs.filter(q=>sabia[q.s]).length;
+  let t;
+  if(resp<qs.length){el.innerHTML=resp?'<b>'+s+'</b><span>de '+resp+' que você já virou. Faltam '+(qs.length-resp)+'.</span>':'<span>Vira as cartas e marca o que você sabia.</span>';return;}
+  else if(s>=12) t='de 14. Pode sentar no sofá.';
+  else if(s>=8) t='de 14. Passou, mas sem sobrar.';
+  else if(s>=4) t='de 14. Tá no caminho.';
+  else t='de 14. ENEN total, mas agora não mais.';
+  el.innerHTML='<b>'+s+'</b><span>'+t+'</span>';
+}
+render();
+
+$('#rounds').addEventListener('click',e=>{
+  const c=e.target.closest('.carta'); if(!c) return;
+  const q=todas.find(x=>x.s===c.dataset.s);
+  if(pode(q)) abrir(q); else pedir(q);
+});
+
+/* cadastro */
+function pedir(q){
+  pendente=q?q.s:null;
+  $('#f-origem').value=pendente||'';
+  const a=$('#aviso'); a.hidden=false; a.textContent=q?'"'+q.q+'" libera com o cadastro.':'Esse gabarito libera com o cadastro.';
+  $('#gate').scrollIntoView({behavior:'smooth',block:'start'});
+  setTimeout(()=>{try{$('#f-nome').focus({preventScroll:true});}catch(e){}},400);
+}
+function liberar(nome){
+  liberado=true;
+  $('#gate').innerHTML='<h2>Tá liberado'+(nome?', '+esc(nome.split(' ')[0]):'')+'.</h2><p style="margin-top:0">Todas as '+todas.length+' cartas abertas. Começa pelo ENEN e vê quantas você sabia.</p><a class="btn" href="#r1">Ir pro round 01</a>';
+  render();
+}
+if(liberado){ let n=''; try{n=localStorage.getItem(KEY)||'';}catch(e){} liberar(n); }
+
+$('#leadForm').addEventListener('submit',ev=>{
+  ev.preventDefault();
+  const f=ev.target, err=$('#formErr');
+  const nome=f.nome.value.trim(), whats=f.whatsapp.value.replace(/\D/g,''), email=f.email.value.trim();
+  if(!nome){err.textContent='Faltou seu nome.';f.nome.focus();return;}
+  if(whats.length<10){err.textContent='Confere o WhatsApp com DDD.';f.whatsapp.focus();return;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){err.textContent='Esse e-mail tá incompleto.';f.email.focus();return;}
+  if(!f.perfil.value){err.textContent='Conta pra gente o que você faz.';f.perfil.focus();return;}
+  if(!f.consentimento.checked){err.textContent='Marca a caixinha pra gente poder te chamar.';return;}
+  err.textContent='';
+  lead={nome,nome_artistico:f.nome_artistico.value.trim(),whatsapp:whats,email,perfil:f.perfil.value,editora:f.editora.value,pergunta_origem:f.pergunta_origem.value,origem:'gabarito-quadro'};
+  // Integração: enviar `lead` para a ferramenta de captação da easyRoyalty aqui.
+  window.dispatchEvent(new CustomEvent('easyroyalty:lead',{detail:lead}));
+  try{localStorage.setItem(KEY,nome);}catch(e){}
+  liberar(nome);
+  const p=pendente&&todas.find(x=>x.s===pendente);
+  if(p) abrir(p); else document.getElementById('r1').scrollIntoView({behavior:'smooth',block:'start'});
+});
+
+/* verso */
+let ultimoFoco=null;
+function bloco(x){return Array.isArray(x)?'<ul>'+x.map(i=>'<li>'+i+'</li>').join('')+'</ul>':'<p>'+x+'</p>';}
+function abrir(q){
+  atual=q; ultimoFoco=ultimoFoco||document.activeElement;
+  $('#vRound').textContent=q.round.carta+' · '+q.round.nome;
+  $('#vQ').textContent=q.q;
+  $('#vA').innerHTML=q.a.map(bloco).join('')+(q.r?'<p class="resumo">'+q.r+'</p>':'');
+  $('#vSabia').hidden=!q.round.quiz;
+  $('#tSim').setAttribute('aria-pressed',sabia[q.s]==='s'); $('#tNao').setAttribute('aria-pressed',sabia[q.s]==='n');
+  const idx=todas.indexOf(q);
+  $('#vPrev').disabled=idx===0; $('#vPrev').style.visibility=idx===0?'hidden':'visible';
+  const prox=todas[idx+1];
+  $('#vNext').textContent=prox?(pode(prox)?'Próxima →':'Próxima (cadastro) →'):'Fechar';
+  $('#vCopiado').textContent='';
+  $('#verso').hidden=false; document.body.classList.add('modal-open');
+  $('#verso').scrollTop=0;
+  try{history.replaceState(null,'','#'+q.s);}catch(e){}
+  $('#vFechar').focus();
+}
+function fechar(){
+  $('#verso').hidden=true; document.body.classList.remove('modal-open');
+  try{history.replaceState(null,'',location.pathname+location.search);}catch(e){}
+  if(atual){const c=document.querySelector('.carta[data-s="'+atual.s+'"]'); if(c) c.focus({preventScroll:true});}
+  atual=null; ultimoFoco=null;
+}
+function ir(d){
+  const idx=todas.indexOf(atual), q=todas[idx+d];
+  if(!q){fechar();return;}
+  if(pode(q)) abrir(q); else {fechar(); pedir(q);}
+}
+$('#vFechar').onclick=fechar;
+$('#vPrev').onclick=()=>ir(-1);
+$('#vNext').onclick=()=>ir(1);
+$('#verso').addEventListener('click',e=>{if(e.target.id==='verso')fechar();});
+document.addEventListener('keydown',e=>{
+  if($('#verso').hidden) return;
+  if(e.key==='Escape') fechar();
+  else if(e.key==='ArrowRight') ir(1);
+  else if(e.key==='ArrowLeft'&&todas.indexOf(atual)>0) ir(-1);
+  else if(e.key==='Tab'){const f=[...$('#verso').querySelectorAll('button:not([disabled])')].filter(b=>b.offsetParent!==null&&b.style.visibility!=='hidden');if(!f.length)return;const i=f.indexOf(document.activeElement);if(e.shiftKey&&i<=0){e.preventDefault();f[f.length-1].focus();}else if(!e.shiftKey&&i===f.length-1){e.preventDefault();f[0].focus();}}
+});
+function marcar(v){
+  if(!atual) return;
+  sabia[atual.s]=sabia[atual.s]===v?undefined:v;
+  try{localStorage.setItem(KS,JSON.stringify(sabia));}catch(e){}
+  $('#tSim').setAttribute('aria-pressed',sabia[atual.s]==='s'); $('#tNao').setAttribute('aria-pressed',sabia[atual.s]==='n');
+  const s=atual.s; render(); placar();
+  if(sabia[s]) setTimeout(()=>{ if(atual&&atual.s===s) ir(1); },350);
+}
+$('#tSim').onclick=()=>marcar('s');
+$('#tNao').onclick=()=>marcar('n');
+$('#vLink').onclick=()=>{
+  const url=location.href.split('#')[0]+'#'+atual.s;
+  const ok=()=>{$('#vCopiado').textContent='Link copiado';};
+  try{navigator.clipboard.writeText(url).then(ok,()=>{$('#vCopiado').textContent=url;});}catch(e){$('#vCopiado').textContent=url;}
+};
+
+/* link direto: #slug abre a carta */
+function porHash(){
+  const s=(location.hash||'').slice(1); if(!s) return;
+  const q=todas.find(x=>x.s===s); if(!q) return;
+  if(pode(q)) abrir(q); else pedir(q);
+}
+window.addEventListener('hashchange',porHash);
+porHash();
+
+/* CTA */
+$('#ctaBtn').addEventListener('click',e=>{
+  if(e.currentTarget.dataset.whatsappLink) return;
+  e.preventDefault();
+  window.dispatchEvent(new CustomEvent('easyroyalty:auditoria',{detail:lead}));
+  $('#ctaHint').textContent='Fechou. A gente te chama no WhatsApp que você deixou.';
+});
+})();
+</script>
+
+<script>
+(function(){
+  function enviar(d){
+    d=Object.assign({},d,{'form-name':'leads',pagina:location.pathname,consentimento:'sim'});
+    try{fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(d).toString()}).catch(function(){});}catch(e){}
+  }
+  window.addEventListener('easyroyalty:lead',function(e){
+    try{localStorage.setItem('er_lead',JSON.stringify(e.detail||{}));}catch(x){}
+    enviar(e.detail||{});
+  });
+  window.addEventListener('easyroyalty:auditoria',function(e){
+    var d=e.detail; if(!d){try{d=JSON.parse(localStorage.getItem('er_lead')||'null');}catch(x){}}
+    d=Object.assign({},d||{}); d.origem='pediu-auditoria ('+(d.origem||'sem cadastro')+')';
+    enviar(d);
+  });
+})();
+</script>
+</body>
+</html>
